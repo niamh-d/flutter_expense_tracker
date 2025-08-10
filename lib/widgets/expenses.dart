@@ -28,7 +28,7 @@ class _ExpensesState extends State<Expenses> {
       date: DateTime.now(),
       title: 'Bus ticket',
       amount: 10.50,
-      category: ExpenseCategory.other,
+      category: ExpenseCategory.transport,
     ),
   ];
 

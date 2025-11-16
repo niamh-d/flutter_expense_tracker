@@ -1,3 +1,4 @@
+import 'package:expense_tracker/models/expense.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -14,6 +15,7 @@ class _NewExpenseState extends State<NewExpense> {
   final _titleController = TextEditingController();
   final _amountController = TextEditingController();
   DateTime? _selectedDate;
+  ExpenseCategory _selectedCategory = ExpenseCategory.food;
 
   void _presentDatePicker() async {
     final now = DateTime.now();
@@ -80,9 +82,28 @@ class _NewExpenseState extends State<NewExpense> {
               ),
             ],
           ),
+          const SizedBox(height: 16),
           Row(
             children: [
-              ElevatedButton(
+              DropdownButton(
+                value: _selectedCategory,
+                items: ExpenseCategory.values
+                    .map(
+                      (c) => DropdownMenuItem(
+                        value: c,
+                        child: Text(c.name.toUpperCase()),
+                      ),
+                    )
+                    .toList(),
+                onChanged: (value) {
+                  if (value == null) return;
+                  setState(() {
+                    _selectedCategory = value;
+                  });
+                },
+              ),
+              const Spacer(),
+              TextButton(
                 onPressed: () => Navigator.pop(context),
                 child: const Text('Close'),
               ),
